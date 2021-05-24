@@ -6,12 +6,12 @@ import sys
 import traceback
 
 intents = discord.Intents.all()
-client = commands.Bot(command_prefix='g!', intents=intents)
+client = commands.Bot(command_prefix='l!', intents=intents)
 
 @client.event
 async def on_ready():
 	print("hello world!")
-	gamerzone = client.get_guild(766848554899079218)
+	animezome = client.get_guild(816079042423947266)
 	await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f"Spotify"))
 
 with open("tokenfile", "r") as tokenfile:
@@ -23,14 +23,16 @@ with open("tokenfile", "r") as tokenfile:
 
 @client.event
 async def on_member_join(member):
-	welcome = discord.utils.get(member.guild.channels, id=766848918499360809)
+	welcome = discord.utils.get(member.guild.channels, id=816079044717969442)
+	role = discord.utils.get(member.guild.roles, id=816079788333596692)
 
-	await member.send(f"welcome to **{member.guild.name}**")
+	await member.add_roles(role)
 	await welcome.send(f"{member.mention} has joined the server\n\nwe now have {len(member.guild.members)} members")
+	await member.send(f"welcome to **{member.guild.name}**")
 
 @client.event
 async def on_member_remove(member):
-	welcome = discord.utils.get(member.guild.channels, id=766848918499360809)
+	welcome = discord.utils.get(member.guild.channels, id=816079044717969442)
 
 	await welcome.send(f"{member.mention} has left the server\n\nwe now have {len(member.guild.members)} members")
 
